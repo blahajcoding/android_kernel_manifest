@@ -4,8 +4,8 @@
        fetch="https://android.googlesource.com/" />
   <remote name="bruce" 
        fetch="https://github.com/toraidl/" />
-  <remote name="venus" 
-       fetch="https://github.com/blahajcoding/" />
+  <remote name="tqmane" 
+       fetch="https://github.com/tqmane/" />
   <remote name="github" 
        fetch="https://github.com/" />
 
@@ -29,7 +29,7 @@
   <project name="android_kernel_oppo_sm8350"
            path="kernel/msm-5.4"
            revision="oneplus/sm8350v_15.0.0_oneplus9pro"
-           remote="venus" clone-depth="1" />
+           remote="tqmane" clone-depth="1" />
 
   <project name="android_kernel_modules_and_devicetree_oppo_sm8350"
            path="modules_devicetree"
