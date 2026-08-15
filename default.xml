@@ -6,6 +6,8 @@
        fetch="https://github.com/toraidl/" />
   <remote name="tqmane" 
        fetch="https://github.com/tqmane/" />
+  <remote name="blahajcoding" 
+       fetch="https://github.com/blahajcoding/" />
   <remote name="github" 
        fetch="https://github.com/" />
 
