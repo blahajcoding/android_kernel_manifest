@@ -1,34 +1,46 @@
-# OnePlus 9 Pro Android Common Kernel 6.18 manifest
+# lemonadep 6.18 kernel manifest
 
-This manifest syncs the source tree for the OnePlus 9 Pro (`lemonadep`,
-SM8350/Lahaina) forward-port onto Android Common Kernel `android17-6.18`.
-
-The tree follows the split used by the Lahaina/Yupik 6.18 reference port:
-
-| Path | Repository | Contents |
-|---|---|---|
-| `kernel/lemonadep-6.18` | [lemonadep-6.18-kernel](https://github.com/blahajcoding/lemonadep-6.18-kernel) | ACK 6.18 plus the Qualcomm Lahaina platform and lemonadep kernel configuration |
-| `kernel/lemonadep-6.18-modules` | [lemonadep-6.18-modules](https://github.com/blahajcoding/lemonadep-6.18-modules) | Qualcomm vendor modules and lemonadep board modules |
-| `kernel/lemonadep-6.18-devicetrees` | [lemonadep-6.18-devicetrees](https://github.com/blahajcoding/lemonadep-6.18-devicetrees) | Lahaina base DT and lemonadep overlay/devicetree sources |
+Repo manifest for the forward-port of the **OnePlus 9 Pro** (`lemonadep`,
+SM8350/Lahaina) to Android Common Kernel 6.18.
 
 ## Sync
 
 ```bash
-repo init -u https://github.com/blahajcoding/android_kernel_manifest.git -b android17-6.18-lemonadep
-repo sync --force-sync --no-clone-bundle --current-branch --no-tags -j$(nproc --all)
+repo init -u https://github.com/blahajcoding/android_kernel_manifest.git -b lemonadep-6.18
+repo sync --force-sync --no-clone-bundle --current-branch --no-tags -j"$(nproc --all)"
 ```
+
+The manifest intentionally contains only the three source repositories needed
+by the 6.18 build:
+
+- `kernel/lemonadep-6.18` — ACK 6.18 kernel, build system and integration metadata
+- `kernel/lemonadep-6.18-modules` — Qualcomm/vendor module sources and build scripts
+- `kernel/lemonadep-6.18-devicetrees` — Lahaina base and lemonadep overlay devicetrees
+
+Unlike the old 5.4 manifest, no AOSP `kernel/build` checkout or host prebuilts
+are required. The kernel's `build.sh` pins and downloads its own toolchain
+(Android Clang r596125, Rust, bindgen, pahole, mkdtboimg and AnyKernel3).
 
 ## Build
 
 ```bash
 cd kernel/lemonadep-6.18
-./build.sh
+./build.sh          # tools, kernel, modules, dtbo and AnyKernel3 zip
 ```
 
-The build script uses the sibling module and devicetree checkouts when they
-are present, downloads a pinned Android Clang/Rust toolchain, and writes output
-to `out/lemonadep-6.18/dist` at the top of the repo workspace.
+Useful partial steps:
 
-This is a forward-port: new work is implemented on ACK 6.18. The old SM8350
-5.4 kernel and stock OPLUS module repositories are references only, not merge
-bases.
+```bash
+./build.sh kernel   # baseline kernel Image and in-tree modules
+./build.sh modules  # vendor/out-of-tree modules
+./build.sh dtbo     # lemonadep normal + T0 dtbo image
+./build.sh zip      # flashable AnyKernel3 package
+```
+
+## Status
+
+This is an active forward-port, not a complete hardware enablement release.
+Read `PORTING.md` in the kernel repository before flashing. In particular,
+display, touch, camera sensors, audio amps, charging, NFC, fingerprint and
+several other device-specific blocks are explicitly deferred or under active
+migration; they are not silently stubbed out.

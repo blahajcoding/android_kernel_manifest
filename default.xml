@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote name="aosp"
-          fetch="https://android.googlesource.com/" />
-  <remote name="github"
-          fetch="https://github.com/" />
   <remote name="blahajcoding"
-          fetch="https://github.com/blahajcoding/" />
+          fetch="https://github.com/blahajcoding/"
+          clone-depth="1" />
 
-  <default revision="main" remote="blahajcoding" sync-j="4" sync-c="true" />
+  <default remote="blahajcoding"
+           revision="main"
+           sync-j="4"
+           sync-c="true" />
 
-  <!-- OnePlus 9 Pro (lemonadep, SM8350/Lahaina) on Android Common Kernel 6.18 -->
-  <project name="lemonadep-6.18-kernel"
-           path="kernel/lemonadep-6.18"
+  <!-- OnePlus 9 Pro (lemonadep, SM8350/Lahaina) on Android Common Kernel 6.18.
+       The kernel build is self-contained: kernel/lemonadep-6.18/build.sh pins
+       and downloads the Clang/Rust/bindgen/pahole/mkdtboimg/AnyKernel3 tools.
+       The modules and devicetree repositories must remain siblings of the
+       kernel checkout because build.sh links them into its work directory. -->
+  <project path="kernel/lemonadep-6.18"
+           name="lemonadep-6.18-kernel"
            revision="main"
            clone-depth="1" />
-
-  <project name="lemonadep-6.18-modules"
-           path="kernel/lemonadep-6.18-modules"
+  <project path="kernel/lemonadep-6.18-modules"
+           name="lemonadep-6.18-modules"
            revision="main"
            clone-depth="1" />
-
-  <project name="lemonadep-6.18-devicetrees"
-           path="kernel/lemonadep-6.18-devicetrees"
+  <project path="kernel/lemonadep-6.18-devicetrees"
+           name="lemonadep-6.18-devicetrees"
            revision="main"
            clone-depth="1" />
 </manifest>
