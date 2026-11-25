@@ -5,7 +5,7 @@
           clone-depth="1" />
 
   <default remote="blahajcoding"
-           revision="main"
+           revision="lemonadep/initial-scaffold"
            sync-j="4"
            sync-c="true" />
 
@@ -16,14 +16,11 @@
        kernel checkout because build.sh links them into its work directory. -->
   <project path="kernel/lemonadep-6.18"
            name="lemonadep-6.18-kernel"
-           revision="main"
            clone-depth="1" />
   <project path="kernel/lemonadep-6.18-modules"
            name="lemonadep-6.18-modules"
-           revision="main"
            clone-depth="1" />
   <project path="kernel/lemonadep-6.18-devicetrees"
            name="lemonadep-6.18-devicetrees"
-           revision="main"
            clone-depth="1" />
 </manifest>

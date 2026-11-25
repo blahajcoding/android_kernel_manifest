@@ -6,12 +6,13 @@ SM8350/Lahaina) to Android Common Kernel 6.18.
 ## Sync
 
 ```bash
-repo init -u https://github.com/blahajcoding/android_kernel_manifest.git -b lemonadep-6.18
+repo init -u https://github.com/blahajcoding/android_kernel_manifest.git -b android17-6.18-lemonadep
 repo sync --force-sync --no-clone-bundle --current-branch --no-tags -j"$(nproc --all)"
 ```
 
 The manifest intentionally contains only the three source repositories needed
-by the 6.18 build:
+by the 6.18 build. While the initial checkpoint PRs are open it tracks their
+`lemonadep/initial-scaffold` heads rather than the unconverted `main` branches:
 
 - `kernel/lemonadep-6.18` — ACK 6.18 kernel, build system and integration metadata
 - `kernel/lemonadep-6.18-modules` — Qualcomm/vendor module sources and build scripts
